@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIAKAD - Universitas Nusantara</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background: white;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-800 h-full flex flex-col bg-slate-50">
+
+    <!-- Top Navbar -->
+    <header class="bg-indigo-900 text-white sticky top-0 z-30 shadow-md no-print">
+        <div class="px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+            <!-- Brand & Mobile Menu Toggle -->
+            <div class="flex items-center space-x-3">
+                <button id="mobile-menu-btn" class="md:hidden text-slate-200 hover:text-white p-2 rounded-lg focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center font-bold text-xl text-white shadow-inner">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-base leading-tight tracking-wide">SIAKAD UNINUSA</h1>
+                        <p class="text-xs text-indigo-200">Universitas Nusantara Digital</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header Right Info & Profile -->
+            <div class="flex items-center space-x-4">
+                <!-- Semester Badge -->
+                <div class="hidden sm:flex items-center bg-indigo-800/80 px-3 py-1.5 rounded-lg border border-indigo-700/50 text-xs text-indigo-100">
+                    <i class="fa-regular fa-calendar-check mr-2 text-indigo-300"></i>
+                    <span>T.A. 2025/2026 - Ganjil</span>
+                </div>
+
+                <!-- Notification Bell -->
+                <div class="relative">
+                    <button id="notif-btn" class="relative p-2 text-slate-200 hover:text-white rounded-full hover:bg-indigo-800 transition">
+                        <i class="fa-regular fa-bell text-lg"></i>
+                        <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-rose-500 rounded-full ring-2 ring-indigo-900"></span>
+                    </button>
+                    <!-- Notif Dropdown -->
+                    <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50 text-slate-800">
+                        <div class="px-4 py-2 border-b border-slate-100 flex justify-between items-center">
+                            <span class="font-semibold text-sm">Pemberitahuan</span>
+                            <span class="text-xs text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full font-medium">3 Baru</span>
+                        </div>
+                        <div class="max-h-64 overflow-y-auto divide-y divide-slate-100">
+                            <a href="#" class="block px-4 py-3 hover:bg-slate-50 transition">
+                                <p class="text-xs font-semibold text-slate-700">Batas Pengisian KRS Hari Ini!</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Jangan lupa simpan dan cetak bukti KRS Anda.</p>
+                                <span class="text-[10px] text-slate-400 mt-1 block">10 Menit lalu</span>
+                            </a>
+                            <a href="#" class="block px-4 py-3 hover:bg-slate-50 transition">
+                                <p class="text-xs font-semibold text-slate-700">Pembayaran UKT Diterima</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Status registrasi ulang Anda telah aktif.</p>
+                                <span class="text-[10px] text-slate-400 mt-1 block">2 Jam lalu</span>
+                            </a>
+                            <a href="#" class="block px-4 py-3 hover:bg-slate-50 transition">
+                                <p class="text-xs font-semibold text-slate-700">Nilai Pemrograman Web Keluar</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Dosen Pengampu telah menginput nilai akhir.</p>
+                                <span class="text-[10px] text-slate-400 mt-1 block">Kemarin</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Profile -->
+                <div class="flex items-center space-x-3 pl-2 border-l border-indigo-800">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Avatar Mahasiswa" class="w-9 h-9 rounded-full object-cover ring-2 ring-indigo-400/50">
+                    <div class="hidden lg:block text-left">
+                        <p class="text-xs font-semibold leading-none text-white">Budi Santoso</p>
+                        <p class="text-[11px] text-indigo-200 mt-0.5">NIM: 22010189</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="flex-1 flex overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="bg-white w-64 border-r border-slate-200 flex-shrink-0 flex flex-col justify-between transition-all duration-300 z-20 absolute md:relative inset-y-0 left-0 -translate-x-full md:translate-x-0 no-print">
+            <div class="p-4 space-y-1">
+                <!-- User Card (Mobile Only) -->
+                <div class="md:hidden p-3 mb-4 bg-slate-50 rounded-xl border border-slate-100 flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" class="w-10 h-10 rounded-full object-cover">
+                    <div>
+                        <p class="text-sm font-semibold">Budi Santoso</p>
+                        <p class="text-xs text-slate-500">Teknik Informatika - S1</p>
+                    </div>
+                </div>
+
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-3 mb-2">Menu Utama</div>
+
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-indigo-600 bg-indigo-50">
+                    <i class="fa-solid fa-chart-pie w-5 text-center text-lg"></i>
+                    <span>Dashboard</span>
+                </button>
+
+                <button onclick="switchTab('krs')" id="nav-krs" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+                    <i class="fa-solid fa-file-pen w-5 text-center text-lg"></i>
+                    <span>KRS Online</span>
+                </button>
+
+                <button onclick="switchTab('khs')" id="nav-khs" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+                    <i class="fa-solid fa-award w-5 text-center text-lg"></i>
+                    <span>KHS & Transkrip</span>
+                </button>
+
+                <button onclick="switchTab('jadwal')" id="nav-jadwal" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+                    <i class="fa-regular fa-calendar-days w-5 text-center text-lg"></i>
+                    <span>Jadwal Kuliah</span>
+                </button>
+
+                <button onclick="switchTab('keuangan')" id="nav-keuangan" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+                    <i class="fa-solid fa-wallet w-5 text-center text-lg"></i>
+                    <span>Presensi & UKT</span>
+                </button>
+
+                <div class="pt-4 text-xs font-semibold text-slate-400 uppercase tracking-wider px-3 mb-2">Akun & Profil</div>
+
+                <button onclick="switchTab('profil')" id="nav-profil" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+                    <i class="fa-solid fa-id-card w-5 text-center text-lg"></i>
+                    <span>Profil Saya</span>
+                </button>
+            </div>
+
+            <!-- Footer Info -->
+            <div class="p-4 border-t border-slate-100 space-y-3">
+                <div class="p-3 bg-indigo-900 text-white rounded-xl text-xs space-y-1">
+                    <p class="font-semibold text-indigo-200">Dosen Pembimbing Akademik:</p>
+                    <p class="font-bold text-white">Dr. Eng. Ir. Hendra S., M.T.</p>
+                    <p class="text-[11px] text-indigo-300">NIP: 198203152008121002</p>
+                </div>
+                <button onclick="showToast('Berhasil keluar sistem.', 'info')" class="w-full flex items-center justify-center space-x-2 p-2.5 rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-50 transition border border-rose-100">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Keluar Sistem</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Overlay Mobile Sidebar -->
+        <div id="sidebar-overlay" class="hidden fixed inset-0 bg-slate-900/40 z-10 md:hidden"></div>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+            <!-- DASHBOARD VIEW -->
+            <section id="tab-dashboard" class="tab-content space-y-6">
+                <!-- Welcome Card -->
+                <div class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-900 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+                    <div class="absolute right-0 top-0 bottom-0 opacity-10 flex items-center pr-10 pointer-events-none">
+                        <i class="fa-solid fa-graduation-cap text-9xl"></i>
+                    </div>
+                    <div class="relative z-10 max-w-2xl space-y-2">
+                        <span class="inline-block px-3 py-1 bg-indigo-700/60 rounded-full text-xs font-medium text-indigo-200 border border-indigo-500/30">
+                            Semester 5 - S1 Teknik Informatika
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-bold">Selamat Datang Kembali, Budi!</h2>
+                        <p class="text-sm text-indigo-200 leading-relaxed">
+                            Periode pengisian KRS TA 2025/2026 Ganjil telah dibuka. Pastikan Anda melakukan konsultasi dengan Dosen Pembimbing Akademik sebelum melakukan penguncian KRS.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Summary Cards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- IPK Card -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">IPK Kumulatif</p>
+                            <h3 class="text-2xl font-bold text-slate-800">3.82</h3>
+                            <span class="text-[11px] text-emerald-600 font-medium"><i class="fa-solid fa-arrow-up text-[9px] mr-0.5"></i> +0.05 semester lalu</span>
+                        </div>
+                    </div>
+
+                    <!-- Total SKS Card -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Total SKS Lulus</p>
+                            <h3 class="text-2xl font-bold text-slate-800">84 <span class="text-sm font-normal text-slate-400">/ 144</span></h3>
+                            <span class="text-[11px] text-slate-500">Progres Bebas SKS: 58%</span>
+                        </div>
+                    </div>
+
+                    <!-- Presensi Card -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Rata-rata Presensi</p>
+                            <h3 class="text-2xl font-bold text-slate-800">96.4%</h3>
+                            <span class="text-[11px] text-emerald-600 font-medium">Memenuhi syarat ujian</span>
+                        </div>
+                    </div>
+
+                    <!-- Status Keuangan Card -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Status UKT Sem 5</p>
+                            <h3 class="text-lg font-bold text-emerald-600">LUNAS</h3>
+                            <span class="text-[11px] text-slate-400">Terverifikasi Sistem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts & Schedule Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Academic Performance Chart -->
+                    <div class="lg:col-span-2 bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <div>
+                                <h3 class="font-bold text-slate-800">Perkembangan IPS / IPK</h3>
+                                <p class="text-xs text-slate-500">Grafik Indeks Prestasi tiap semester</p>
+                            </div>
+                            <span class="px-2.5 py-1 bg-slate-100 rounded-lg text-xs font-semibold text-slate-600">S1 Teknik Informatika</span>
+                        </div>
+                        <div class="h-64 relative">
+                            <canvas id="ipkChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Today's Classes -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                                <h3 class="font-bold text-slate-800">Jadwal Kuliah Hari Ini</h3>
+                                <span class="text-xs font-medium text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">Senin</span>
+                            </div>
+                            <div class="space-y-3 mt-4">
+                                <div class="p-3 bg-indigo-50/50 border-l-4 border-indigo-600 rounded-r-xl space-y-1">
+                                    <div class="flex justify-between items-start">
+                                        <p class="text-xs font-bold text-slate-800">Pemrograman Web Lanjut</p>
+                                        <span class="text-[10px] bg-indigo-200 text-indigo-900 font-bold px-1.5 py-0.5 rounded">Lab 03</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500"><i class="fa-regular fa-clock mr-1"></i> 08:00 - 10:30 WIB</p>
+                                    <p class="text-xs text-slate-600">Dosen: Dr. Aris Munandar, M.Kom</p>
+                                </div>
+
+                                <div class="p-3 bg-amber-50/50 border-l-4 border-amber-500 rounded-r-xl space-y-1">
+                                    <div class="flex justify-between items-start">
+                                        <p class="text-xs font-bold text-slate-800">Basis Data Terdistribusi</p>
+                                        <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded">R.302</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500"><i class="fa-regular fa-clock mr-1"></i> 13:00 - 15:30 WIB</p>
+                                    <p class="text-xs text-slate-600">Dosen: Siti Rahmawati, M.T.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="switchTab('jadwal')" class="w-full mt-4 py-2 text-center text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition">
+                            Lihat Semua Jadwal Minggu Ini <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Announcement Feed -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-slate-800">Pengumuman Akademik Terbaru</h3>
+                        <a href="#" class="text-xs text-indigo-600 font-semibold hover:underline">Arsip Pengumuman</a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-indigo-50/30 transition space-y-2">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="px-2 py-0.5 bg-rose-100 text-rose-700 font-medium rounded">Penting</span>
+                                <span class="text-slate-400">20 Agu 2025</span>
+                            </div>
+                            <h4 class="font-semibold text-sm text-slate-800">Jadwal Pengajuan Beasiswa PPA Tahun 2025</h4>
+                            <p class="text-xs text-slate-500 line-clamp-2">Pendaftaran beasiswa PPA dibuka bagi mahasiswa aktif semester 3 dan 5 dengan minimal IPK 3.25. Berkas diunggah via portal kemahasiswaan.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-indigo-50/30 transition space-y-2">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="px-2 py-0.5 bg-blue-100 text-blue-700 font-medium rounded">Informasi</span>
+                                <span class="text-slate-400">18 Agu 2025</span>
+                            </div>
+                            <h4 class="font-semibold text-sm text-slate-800">Panduan Pengisian KRS TA 2025/2026 Ganjil</h4>
+                            <p class="text-xs text-slate-500 line-clamp-2">Pengisian KRS disesuaikan dengan jatah SKS maksimal berdasarkan IPS semester sebelumnya. Beban SKS maksimal 24 SKS untuk IPS &ge; 3.00.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KRS ONLINE VIEW -->
+            <section id="tab-krs" class="tab-content hidden space-y-6">
+                <!-- KRS Banner & Info -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Kartu Rencana Studi (KRS) Online</h2>
+                        <p class="text-xs text-slate-500">Pilih mata kuliah yang akan diambil pada semester berjalan (Ganjil 2025/2026).</p>
+                    </div>
+                    <div class="flex items-center space-x-3 w-full md:w-auto">
+                        <button onclick="cetakKRS()" class="flex-1 md:flex-none px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-print"></i>
+                            <span>Cetak Draft KRS</span>
+                        </button>
+                        <button onclick="simpanKRS()" class="flex-1 md:flex-none px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl transition flex items-center justify-center space-x-2 shadow-sm">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Ajukan ke Dosen Wali</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SKS Counter Progress Bar -->
+                <div class="bg-indigo-900 text-white p-5 rounded-2xl shadow-md space-y-3">
+                    <div class="flex justify-between items-center text-sm font-semibold">
+                        <span>Beban SKS Dipilih</span>
+                        <span id="sks-counter">18 / 24 SKS Mks.</span>
+                    </div>
+                    <div class="w-full bg-indigo-950 rounded-full h-3 overflow-hidden p-0.5 border border-indigo-700">
+                        <div id="sks-progress" class="bg-gradient-to-r from-emerald-400 to-indigo-400 h-full rounded-full transition-all duration-300" style="width: 75%"></div>
+                    </div>
+                    <div class="flex justify-between items-center text-xs text-indigo-200">
+                        <span><i class="fa-solid fa-circle-info mr-1"></i> Berdasarkan IPS Semester 4 (3.82) Anda berhak mengambil maks. 24 SKS</span>
+                        <span id="sks-remaining" class="font-bold text-emerald-300">Sisa 6 SKS</span>
+                    </div>
+                </div>
+
+                <!-- Available Courses List & Selection Split -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Course Search & Selection Table -->
+                    <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 space-y-4">
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                            <h3 class="font-bold text-slate-800 text-sm">Katalog Mata Kuliah Tersedia</h3>
+                            <div class="relative w-full sm:w-64">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                                <input type="text" id="krs-search" oninput="filterCourses()" placeholder="Cari kode atau mata kuliah..." class="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                        </div>
+
+                        <!-- Courses List -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-100">
+                                        <th class="p-3">Kode / Matakuliah</th>
+                                        <th class="p-3">SKS</th>
+                                        <th class="p-3">Jadwal & Ruang</th>
+                                        <th class="p-3">Kuota</th>
+                                        <th class="p-3 text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="krs-course-table" class="divide-y divide-slate-100">
+                                    <!-- Dynamic rows loaded by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Selected Courses Basket -->
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 space-y-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                                <h3 class="font-bold text-slate-800 text-sm">Rencana Matakuliah Terpilih</h3>
+                                <span id="selected-count-badge" class="px-2 py-0.5 bg-indigo-50 text-indigo-600 font-bold text-xs rounded-full">6 Matakuliah</span>
+                            </div>
+
+                            <div id="selected-courses-list" class="space-y-3 mt-4 max-h-[400px] overflow-y-auto pr-1">
+                                <!-- Dynamic selected list -->
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-100 space-y-2">
+                            <div class="flex justify-between text-xs text-slate-600">
+                                <span>Status Persetujuan:</span>
+                                <span class="font-bold text-amber-600">DRAFT (Belum Dikirim)</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400">Pastikan mata kuliah tidak memiliki jadwal yang bentrok sebelum mengajukan.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KHS & TRANSKRIP VIEW -->
+            <section id="tab-khs" class="tab-content hidden space-y-6">
+                <!-- Header Filters -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Kartu Hasil Studi (KHS)</h2>
+                        <p class="text-xs text-slate-500">Lihat rekapitulasi nilai dan indeks prestasi tiap semester.</p>
+                    </div>
+
+                    <div class="flex items-center space-x-3 w-full sm:w-auto">
+                        <select id="khs-semester-select" onchange="changeKhsSemester()" class="bg-slate-50 border border-slate-200 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="4">Semester 4 (2024/2025 Genap)</option>
+                            <option value="3">Semester 3 (2024/2025 Ganjil)</option>
+                            <option value="2">Semester 2 (2023/2024 Genap)</option>
+                            <option value="1">Semester 1 (2023/2024 Ganjil)</option>
+                        </select>
+                        <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl transition flex items-center space-x-2">
+                            <i class="fa-solid fa-print"></i>
+                            <span>Cetak KHS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KHS Summary Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center">
+                        <p class="text-xs text-slate-500">Indeks Prestasi Semester (IPS)</p>
+                        <h3 id="khs-ips-val" class="text-3xl font-extrabold text-indigo-600 mt-1">3.88</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center">
+                        <p class="text-xs text-slate-500">SKS Diambil Semester Ini</p>
+                        <h3 id="khs-sks-val" class="text-3xl font-extrabold text-slate-800 mt-1">21 SKS</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center">
+                        <p class="text-xs text-slate-500">Jumlah Matakuliah</p>
+                        <h3 id="khs-count-val" class="text-3xl font-extrabold text-slate-800 mt-1">7 Matakuliah</h3>
+                    </div>
+                </div>
+
+                <!-- Grades Table -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 space-y-4">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-100">
+                                    <th class="p-3">No</th>
+                                    <th class="p-3">Kode MK</th>
+                                    <th class="p-3">Nama Mata Kuliah</th>
+                                    <th class="p-3">SKS</th>
+                                    <th class="p-3">Nilai Huruf</th>
+                                    <th class="p-3">Bobot Angka</th>
+                                    <th class="p-3">Kualitas (SKS x Bobot)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="khs-table-body" class="divide-y divide-slate-100">
+                                <!-- Loaded dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- JADWAL KULIAH VIEW -->
+            <section id="tab-jadwal" class="tab-content hidden space-y-6">
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Jadwal Kuliah Mingguan</h2>
+                        <p class="text-xs text-slate-500">Tahun Akademik 2025/2026 Ganjil - S1 Teknik Informatika</p>
+                    </div>
+                    <button onclick="window.print()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition">
+                        <i class="fa-solid fa-download mr-1"></i> Export PDF
+                    </button>
+                </div>
+
+                <!-- Weekly Grid Schedule -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <!-- SENIN -->
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                        <div class="font-bold text-xs text-indigo-600 uppercase border-b border-slate-100 pb-2 flex justify-between items-center">
+                            <span>Senin</span>
+                            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                        </div>
+                        <div class="p-3 bg-indigo-50 border-l-4 border-indigo-600 rounded-r-xl space-y-1">
+                            <p class="font-bold text-xs text-slate-800">Pemrograman Web Lanjut</p>
+                            <p class="text-[11px] text-slate-500"><i class="fa-regular fa-clock mr-1"></i> 08.00 - 10.30</p>
+                            <p class="text-[11px] text-slate-600 font-medium"><i class="fa-solid fa-location-dot mr-1"></i> Lab Komputer 3</p>
+                        </div>
+                        <div class="p-3 bg-indigo-50 border-l-4 border-indigo-600 rounded-r-xl space-y-1">
+                            <p class="font-bold text-xs text-slate-800">Basis Data Terdistribusi</p>
+                            <p class="text-[11px] text-slate-500"><i class="fa-regular fa-clock mr-1"></i> 13.00 - 15.30</p>
+                            <p class="text-[11px] text-slate-600 font-medium"><i class="fa-solid fa-location-dot mr-1"></i> Ruang 302</p>
+                        </div>
+                    </div>
+
+                    <!-- SELASA -->
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                        <div class="font-bold text-xs text-emerald-600 uppercase border-b border-slate-100 pb-2 flex justify-between items-center">
+                            <span>Selasa</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                        </div>
+                        <div class="p-3 bg-emerald-50 border-l-4 border-emerald-600 rounded-r-xl space-y-1">
+                            <p class="font-bold text-xs text-slate-800">Kecerdasan Buatan (AI)</p>
+                            <p class="text-[11px] text-slate-500"><i class="fa-regular fa-clock mr-1"></i> 09.30 - 12.00</p>
+                            <p class="text-[11px] text-slate-600 font-medium"><i class="fa-solid fa-location-dot mr-1"></i> Ruang 401</p>
+                        </div>
+                    </div>
+
+                    <!-- RABU -->
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                        <div class="font-bold text-xs text-amber-600 uppercase border-b border-slate-100 pb-2 flex justify-between items-center">
+                            <span>Rabu</span>
+                            <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                        </div>
+                        <div class="p-3 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl space-y-1">
+                            <p class="font-bold text-xs text-slate-800">Jaringan Komputer Lanjut</p>
+                            <p class="text-[11px] text-slate-500"><i class="fa-regular fa-clock mr-1"></i> 08.00 - 10.30</p>
+                            <p class="text-[11px] text-slate-600 font-medium"><i class="fa-solid fa-location-dot mr-1"></i> Lab Jaringan</p>
+                        </div>
+                        <div class="p-3 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl space-y-1">
+                            <p class="font-bold text-xs text-slate-800">Rekayasa Perangkat Lunak</p>
+                            <p class="text-[11px] text-slate-500"><i class="fa-regular fa-clock mr-1"></i> 13.00 - 15.30</p>
+                            <p class="text-[11px] text-slate-600 font-medium"><i class="fa-solid fa-location-dot mr-1"></i> Ruang 204</p>
+                        </div>
+                    </div>
+
+                    <!-- KAMIS -->
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                        <div class="font-bold text-xs text-purple-600 uppercase border-b border-slate-100 pb-2 flex justify-between items-center">
+                            <span>Kamis</span>
+                            <span class="w-2 h-2 rounded-full bg-purple-600"></span>
+                        </div>
+                        <div class="p-3 bg-purple-50 border-l-4 border-purple-600 rounded-r-xl space-y-1">
+                            <p class="font-bold text-xs text-slate-800">Etika & Profesi Informatika</p>
+                            <p class="text-[11px] text-slate-500"><i class="fa-regular fa-clock mr-1"></i> 10.00 - 11.40</p>
+                            <p class="text-[11px] text-slate-600 font-medium"><i class="fa-solid fa-location-dot mr-1"></i> Ruang 101</p>
+                        </div>
+                    </div>
+
+                    <!-- JUMAT -->
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                        <div class="font-bold text-xs text-rose-600 uppercase border-b border-slate-100 pb-2 flex justify-between items-center">
+                            <span>Jumat</span>
+                            <span class="w-2 h-2 rounded-full bg-rose-600"></span>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-dashed border-slate-200 text-center py-6">
+                            <p class="text-xs text-slate-400 font-medium">Tidak Ada Kuliah</p>
+                            <p class="text-[10px] text-slate-400">Jadwal Mandiri / Diskusi Proyek</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRESENSI & KEUANGAN VIEW -->
+            <section id="tab-keuangan" class="tab-content hidden space-y-6">
+                <!-- Tabs internal Financial & Attendance -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <!-- Presensi Section -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                            <div>
+                                <h3 class="font-bold text-slate-800">Ringkasan Kehadiran Kuliah</h3>
+                                <p class="text-xs text-slate-500">Syarat minimal kehadiran untuk mengikuti UAD/UAS adalah 75%</p>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Aman</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- MK 1 -->
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-semibold">
+                                    <span class="text-slate-800">Pemrograman Web Lanjut</span>
+                                    <span class="text-emerald-600">14/14 Pertemuan (100%)</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2">
+                                    <div class="bg-emerald-500 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+
+                            <!-- MK 2 -->
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-semibold">
+                                    <span class="text-slate-800">Kecerdasan Buatan (AI)</span>
+                                    <span class="text-emerald-600">13/14 Pertemuan (92.8%)</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2">
+                                    <div class="bg-emerald-500 h-2 rounded-full" style="width: 92.8%"></div>
+                                </div>
+                            </div>
+
+                            <!-- MK 3 -->
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-semibold">
+                                    <span class="text-slate-800">Basis Data Terdistribusi</span>
+                                    <span class="text-amber-600">11/14 Pertemuan (78.5%)</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2">
+                                    <div class="bg-amber-500 h-2 rounded-full" style="width: 78.5%"></div>
+                                </div>
+                            </div>
+
+                            <!-- MK 4 -->
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-semibold">
+                                    <span class="text-slate-800">Jaringan Komputer Lanjut</span>
+                                    <span class="text-emerald-600">14/14 Pertemuan (100%)</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2">
+                                    <div class="bg-emerald-500 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keuangan UKT Section -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                            <div>
+                                <h3 class="font-bold text-slate-800">Tagihan & Riwayat UKT</h3>
+                                <p class="text-xs text-slate-500">Uang Kuliah Tunggal Kelompok 4</p>
+                            </div>
+                            <button onclick="bayarUKTModal()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition">
+                                <i class="fa-solid fa-credit-card mr-1"></i> Cara Bayar
+                            </button>
+                        </div>
+
+                        <!-- Current Status Billing Card -->
+                        <div class="p-4 bg-indigo-50/70 rounded-xl border border-indigo-100 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-indigo-700 font-medium">Tagihan Semester 5 (2025/2026)</p>
+                                <p class="text-xl font-extrabold text-slate-800 mt-0.5">Rp 4.500.000</p>
+                                <span class="text-[10px] text-slate-500">Jatuh Tempo: 10 Agustus 2025</span>
+                            </div>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 font-bold text-xs rounded-full flex items-center">
+                                <i class="fa-solid fa-circle-check mr-1.5 text-xs"></i> LUNAS
+                            </span>
+                        </div>
+
+                        <!-- Payment History Table -->
+                        <div class="space-y-2">
+                            <p class="text-xs font-bold text-slate-700">Riwayat Transaksi Sebelumnya</p>
+                            <div class="divide-y divide-slate-100 text-xs">
+                                <div class="py-2.5 flex justify-between items-center">
+                                    <div>
+                                        <p class="font-semibold text-slate-800">UKT Semester 4</p>
+                                        <p class="text-[10px] text-slate-400">VA Bank Mandiri • 05 Feb 2025</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-slate-800">Rp 4.500.000</p>
+                                        <span class="text-[10px] text-emerald-600 font-semibold">Berhasil</span>
+                                    </div>
+                                </div>
+
+                                <div class="py-2.5 flex justify-between items-center">
+                                    <div>
+                                        <p class="font-semibold text-slate-800">UKT Semester 3</p>
+                                        <p class="text-[10px] text-slate-400">VA Bank BNI • 10 Ags 2024</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-slate-800">Rp 4.500.000</p>
+                                        <span class="text-[10px] text-emerald-600 font-semibold">Berhasil</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- PROFIL MAHASISWA VIEW -->
+            <section id="tab-profil" class="tab-content hidden space-y-6">
+                <!-- Banner Profile Header -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <div class="h-32 bg-gradient-to-r from-indigo-900 via-indigo-700 to-blue-800"></div>
+                    <div class="p-6 relative pt-0 flex flex-col md:flex-row items-start md:items-end justify-between gap-4 -mt-12">
+                        <div class="flex flex-col md:flex-row items-start md:items-end space-y-3 md:space-y-0 md:space-x-5">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Budi Santoso" class="w-24 h-24 rounded-2xl object-cover ring-4 ring-white shadow-md bg-white">
+                            <div class="space-y-1">
+                                <h2 class="text-xl font-bold text-slate-800">Budi Santoso</h2>
+                                <p class="text-xs text-slate-500 font-medium">NIM: 22010189 • S1 Teknik Informatika (Reguler A)</p>
+                                <span class="inline-block px-2.5 py-0.5 bg-emerald-50 text-emerald-700 font-semibold text-[11px] rounded-full border border-emerald-200">
+                                    Status: Mahasiswa Aktif
+                                </span>
+                            </div>
+                        </div>
+
+                        <button onclick="showToast('Simulasi edit profil berhasil disimpan!', 'success')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl transition shadow-sm">
+                            <i class="fa-solid fa-user-pen mr-1.5"></i> Edit Biodata
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Personal Data Form/Details -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                        <h3 class="font-bold text-slate-800 border-b border-slate-100 pb-3 text-sm">Data Pribadi</h3>
+                        <div class="grid grid-cols-2 gap-4 text-xs">
+                            <div>
+                                <p class="text-slate-400">NIK (KTP)</p>
+                                <p class="font-semibold text-slate-800 mt-0.5">3271021903020005</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400">Tempat, Tgl Lahir</p>
+                                <p class="font-semibold text-slate-800 mt-0.5">Jakarta, 19 Maret 2003</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400">Jenis Kelamin</p>
+                                <p class="font-semibold text-slate-800 mt-0.5">Laki-Laki</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400">Agama</p>
+                                <p class="font-semibold text-slate-800 mt-0.5">Islam</p>
+                            </div>
+                            <div class="col-span-2">
+                                <p class="text-slate-400">Alamat Domisili</p>
+                                <p class="font-semibold text-slate-800 mt-0.5">Jl. Nusantara No. 45, Kecamatan Sukajadi, Kota Bandung</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                        <h3 class="font-bold text-slate-800 border-b border-slate-100 pb-3 text-sm">Kontak & Orang Tua</h3>
+                        <div class="grid grid-cols-2 gap-4 text-xs">
+                            <div>
+                                <p class="text-slate-400">Email Kampus</p>
+                                <p class="font-semibold text-indigo-600 mt-0.5">budi.santoso@mhs.uninusa.ac.id</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400">No. WhatsApp/HP</p>
+                                <p class="font-semibold text-slate-800 mt-0.5">+62 812-3456-7890</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400">Nama Wali / Orang Tua</p>
+                                <p class="font-semibold text-slate-800 mt-0.5">Sutrisno</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400">No. HP Wali</p>
+                                <p class="font-semibold text-slate-800 mt-0.5">+62 813-9876-5432</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Custom Modal Payment / Info -->
+    <div id="custom-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden animate-fade-in">
+            <div class="p-5 border-b border-slate-100 flex justify-between items-center">
+                <h3 id="modal-title" class="font-bold text-slate-800">Judul Modal</h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="modal-body" class="p-5 text-xs text-slate-600 space-y-3">
+                <!-- Dynamic Content -->
+            </div>
+            <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button onclick="closeModal()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Overlay -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+    <script>
+        // DATA MODEL FOR KRS & KHS
+        const availableCourses = [
+            { id: 'IF501', code: 'TIF-301', name: 'Pemrograman Web Lanjut', sks: 3, time: 'Senin, 08:00 - 10:30', room: 'Lab 03', lecturer: 'Dr. Aris Munandar, M.Kom', quota: '38/40', selected: true },
+            { id: 'IF502', code: 'TIF-302', name: 'Kecerdasan Buatan (AI)', sks: 3, time: 'Selasa, 09:30 - 12:00', room: 'R.401', lecturer: 'Prof. Dr. Ir. Budi Rahardjo', quota: '40/40', selected: true },
+            { id: 'IF503', code: 'TIF-303', name: 'Basis Data Terdistribusi', sks: 3, time: 'Senin, 13:00 - 15:30', room: 'R.302', lecturer: 'Siti Rahmawati, M.T.', quota: '35/40', selected: true },
+            { id: 'IF504', code: 'TIF-304', name: 'Jaringan Komputer Lanjut', sks: 3, time: 'Rabu, 08:00 - 10:30', room: 'Lab Jaringan', lecturer: 'Eko Prasetyo, M.T.', quota: '28/40', selected: true },
+            { id: 'IF505', code: 'TIF-305', name: 'Rekayasa Perangkat Lunak', sks: 3, time: 'Rabu, 13:00 - 15:30', room: 'R.204', lecturer: 'Dr. Eng. Hendra S., M.T.', quota: '39/40', selected: true },
+            { id: 'IF506', code: 'TIF-306', name: 'Etika & Profesi Informatika', sks: 3, time: 'Kamis, 10:00 - 11:40', room: 'R.101', lecturer: 'Dra. Ani Lestari, M.Hum', quota: '30/40', selected: true },
+            { id: 'IF507', code: 'TIF-307', name: 'Keamanan Siber & Kriptografi', sks: 3, time: 'Kamis, 13:00 - 15:30', room: 'Lab Siber', lecturer: 'Rudi Hermawan, M.Kom', quota: '25/40', selected: false },
+            { id: 'IF508', code: 'TIF-308', name: 'Pengembangan Aplikasi Mobile', sks: 3, time: 'Jumat, 08:00 - 10:30', room: 'Lab Mobile', lecturer: 'Ahmad Fauzi, M.T.', quota: '31/40', selected: false },
+        ];
+
+        const khsSemesters = {
+            4: [
+                { code: 'TIF-201', name: 'Pemrograman Berorientasi Objek', sks: 3, grade: 'A', weight: 4.0 },
+                { code: 'TIF-202', name: 'Struktur Data & Algoritma', sks: 3, grade: 'A', weight: 4.0 },
+                { code: 'TIF-203', name: 'Sistem Operasi', sks: 3, grade: 'A-', weight: 3.7 },
+                { code: 'TIF-204', name: 'Matematika Diskrit', sks: 3, grade: 'B+', weight: 3.5 },
+                { code: 'TIF-205', name: 'Sistem Informasi Manajemen', sks: 3, grade: 'A', weight: 4.0 },
+                { code: 'TIF-206', name: 'Metode Penelitian', sks: 3, grade: 'A', weight: 4.0 },
+                { code: 'UNI-201', name: 'Bahasa Inggris Akademik', sks: 3, grade: 'A', weight: 4.0 },
+            ],
+            3: [
+                { code: 'TIF-101', name: 'Algoritma Pemrograman II', sks: 3, grade: 'A', weight: 4.0 },
+                { code: 'TIF-102', name: 'Arsitektur Komputer', sks: 3, grade: 'B+', weight: 3.5 },
+                { code: 'TIF-103', name: 'Basis Data Dasar', sks: 3, grade: 'A', weight: 4.0 },
+                { code: 'UNI-102', name: 'Pancasila & Kewarganegaraan', sks: 2, grade: 'A', weight: 4.0 },
+            ]
+        };
+
+        // Navigation Tab Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('bg-indigo-50', 'text-indigo-600');
+                el.classList.add('text-slate-600');
+            });
+
+            const activeTab = document.getElementById('tab-' + tabId);
+            const activeNav = document.getElementById('nav-' + tabId);
+
+            if (activeTab) activeTab.classList.remove('hidden');
+            if (activeNav) {
+                activeNav.classList.add('bg-indigo-50', 'text-indigo-600');
+                activeNav.classList.remove('text-slate-600');
+            }
+
+            // Mobile sidebar toggle close
+            document.getElementById('sidebar').classList.add('-translate-x-full');
+            document.getElementById('sidebar-overlay').classList.add('hidden');
+        }
+
+        // KRS Interactive Selection Functions
+        function renderKRS() {
+            const tableBody = document.getElementById('krs-course-table');
+            const selectedContainer = document.getElementById('selected-courses-list');
+            const searchVal = (document.getElementById('krs-search')?.value || '').toLowerCase();
+
+            tableBody.innerHTML = '';
+            selectedContainer.innerHTML = '';
+
+            let totalSKS = 0;
+            let selectedCount = 0;
+
+            availableCourses.forEach(course => {
+                if (course.selected) {
+                    totalSKS += course.sks;
+                    selectedCount++;
+
+                    // Render Selected Card
+                    selectedContainer.innerHTML += `
+                        <div class="p-3 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-between">
+                            <div class="space-y-0.5">
+                                <span class="text-[10px] bg-indigo-100 text-indigo-700 font-bold px-1.5 py-0.5 rounded">${course.code}</span>
+                                <p class="text-xs font-bold text-slate-800">${course.name}</p>
+                                <p class="text-[11px] text-slate-500">${course.sks} SKS • ${course.time}</p>
+                            </div>
+                            <button onclick="toggleCourse('${course.id}')" class="text-rose-500 hover:text-rose-700 p-1 rounded">
+                                <i class="fa-solid fa-trash-can text-sm"></i>
+                            </button>
+                        </div>
+                    `;
+                }
+
+                // Filter check for available table
+                if (course.name.toLowerCase().includes(searchVal) || course.code.toLowerCase().includes(searchVal)) {
+                    tableBody.innerHTML += `
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="p-3">
+                                <span class="font-bold text-slate-800 block">${course.name}</span>
+                                <span class="text-[11px] text-slate-400">${course.code}</span>
+                            </td>
+                            <td class="p-3 font-semibold text-slate-700">${course.sks} SKS</td>
+                            <td class="p-3 text-slate-600">
+                                <div>${course.time}</div>
+                                <span class="text-[10px] text-indigo-600 font-medium">${course.room}</span>
+                            </td>
+                            <td class="p-3 font-medium text-slate-500">${course.quota}</td>
+                            <td class="p-3 text-center">
+                                <button onclick="toggleCourse('${course.id}')" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition ${
+                                    course.selected 
+                                    ? 'bg-rose-50 text-rose-600 hover:bg-rose-100' 
+                                    : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                                }">
+                                    ${course.selected ? 'Batal' : 'Ambil +'}
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+
+            // Update SKS Progress Counter
+            const maxSKS = 24;
+            const progressPct = Math.min((totalSKS / maxSKS) * 100, 100);
+            
+            document.getElementById('sks-counter').innerText = `${totalSKS} / ${maxSKS} SKS Mks.`;
+            document.getElementById('sks-progress').style.width = `${progressPct}%`;
+            document.getElementById('sks-remaining').innerText = `Sisa ${maxSKS - totalSKS} SKS`;
+            document.getElementById('selected-count-badge').innerText = `${selectedCount} Matakuliah`;
+        }
+
+        function toggleCourse(courseId) {
+            const course = availableCourses.find(c => c.id === courseId);
+            if (!course) return;
+
+            if (!course.selected) {
+                // Calculate new SKS
+                const currentTotal = availableCourses.filter(c => c.selected).reduce((acc, c) => acc + c.sks, 0);
+                if (currentTotal + course.sks > 24) {
+                    showToast('Gagal! Melebihi batas maksimal 24 SKS.', 'error');
+                    return;
+                }
+                course.selected = true;
+                showToast(`Berhasil menambahkan ${course.name}`, 'success');
+            } else {
+                course.selected = false;
+                showToast(`Mata kuliah ${course.name} dihapus dari rencana`, 'info');
+            }
+            renderKRS();
+        }
+
+        function filterCourses() {
+            renderKRS();
+        }
+
+        function simpanKRS() {
+            showToast('KRS berhasil dikirimkan ke Dosen Wali untuk verifikasi!', 'success');
+        }
+
+        function cetakKRS() {
+            window.print();
+        }
+
+        // KHS Semester Renderer
+        function changeKhsSemester() {
+            const semVal = document.getElementById('khs-semester-select').value;
+            const data = khsSemesters[semVal] || khsSemesters[4];
+            const tbody = document.getElementById('khs-table-body');
+            
+            tbody.innerHTML = '';
+            let totalSKS = 0;
+            let totalBobotSKS = 0;
+
+            data.forEach((item, index) => {
+                const kualitas = (item.sks * item.weight).toFixed(1);
+                totalSKS += item.sks;
+                totalBobotSKS += (item.sks * item.weight);
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-3 text-slate-400">${index + 1}</td>
+                        <td class="p-3 font-medium text-slate-600">${item.code}</td>
+                        <td class="p-3 font-bold text-slate-800">${item.name}</td>
+                        <td class="p-3 text-slate-700">${item.sks}</td>
+                        <td class="p-3">
+                            <span class="px-2 py-0.5 rounded font-bold ${
+                                item.grade.startsWith('A') ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'
+                            }">${item.grade}</span>
+                        </td>
+                        <td class="p-3 text-slate-700">${item.weight.toFixed(1)}</td>
+                        <td class="p-3 font-bold text-slate-800">${kualitas}</td>
+                    </tr>
+                `;
+            });
+
+            const ips = (totalBobotSKS / totalSKS).toFixed(2);
+            document.getElementById('khs-ips-val').innerText = ips;
+            document.getElementById('khs-sks-val').innerText = `${totalSKS} SKS`;
+            document.getElementById('khs-count-val').innerText = `${data.length} Matakuliah`;
+        }
+
+        // Modal Helpers
+        function bayarUKTModal() {
+            document.getElementById('modal-title').innerText = 'Petunjuk Pembayaran UKT';
+            document.getElementById('modal-body').innerHTML = `
+                <p>Transfer tagihan sebesar <strong>Rp 4.500.000</strong> ke nomor Virtual Account berikut:</p>
+                <div class="p-3 bg-slate-100 rounded-xl font-mono text-center text-sm font-bold text-indigo-900 border border-slate-200">
+                    8801 2201 0189 0001
+                </div>
+                <p>Bank Partner: Bank Mandiri, BNI, BRI, atau Bank BTN.</p>
+                <p class="text-[11px] text-slate-400">Status pembayaran akan otomatis berubah LUNAS dalam waktu maksimal 1x24 jam kerja.</p>
+            `;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgClass = type === 'success' ? 'bg-emerald-600' : type === 'error' ? 'bg-rose-600' : 'bg-indigo-600';
+            const iconClass = type === 'success' ? 'fa-circle-check' : type === 'error' ? 'fa-triangle-exclamation' : 'fa-circle-info';
+
+            toast.className = `${bgClass} text-white px-4 py-3 rounded-xl shadow-lg text-xs font-semibold flex items-center space-x-2 transition-all transform translate-y-2 opacity-0 pointer-events-auto`;
+            toast.innerHTML = `<i class="fa-solid ${iconClass} text-sm"></i><span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 50);
+
+            // Animate out
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Chart Initialization
+        function initCharts() {
+            const ctx = document.getElementById('ipkChart')?.getContext('2d');
+            if (!ctx) return;
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
+                    datasets: [
+                        {
+                            label: 'IPS (Indeks Prestasi Semester)',
+                            data: [3.75, 3.80, 3.85, 3.88],
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        },
+                        {
+                            label: 'IPK Kumulatif',
+                            data: [3.75, 3.77, 3.80, 3.82],
+                            borderColor: '#10b981',
+                            borderDash: [5, 5],
+                            fill: false,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { family: 'Inter', size: 11 } }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: 3.0,
+                            max: 4.0,
+                            ticks: { font: { family: 'Inter', size: 10 } }
+                        },
+                        x: {
+                            ticks: { font: { family: 'Inter', size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Event Listeners & Initial Load
+        window.onload = function() {
+            initCharts();
+            renderKRS();
+            changeKhsSemester();
+
+            // Mobile Menu Toggle
+            document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('-translate-x-full');
+                document.getElementById('sidebar-overlay').classList.toggle('hidden');
+            });
+
+            document.getElementById('sidebar-overlay')?.addEventListener('click', () => {
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+                document.getElementById('sidebar-overlay').classList.add('hidden');
+            });
+
+            // Notification Bell Toggle
+            document.getElementById('notif-btn')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('notif-dropdown').classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', () => {
+                document.getElementById('notif-dropdown')?.classList.add('hidden');
+            });
+        };
+    </script>
+</body>
+</html>
